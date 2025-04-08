@@ -1,0 +1,109 @@
+.custom-dropdown {
+    top: 100% !important;
+    margin-top: 0px !important;
+}
+
+.custom-icon {
+    margin-right: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-7%);
+}
+
+.nav-wrapper .brand-logo {
+    left: 10px;
+    position: absolute;
+    transform: translateY(-10%);
+    top: 50%;
+}
+
+.show-on-med-and-up {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.main-title {
+    text-align: left;
+    position: absolute;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+nav {
+    background-color: black;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+
+}
+
+.dropdown-wrapper {
+    position: relative;
+    left: auto;
+}
+
+.dropdown-content {
+    left: -60px;
+    position: absolute;
+    height: 100px;
+    width: 150px;
+}
+
+.username {
+    margin-left: 0px;
+    position: relative;
+    right: 60px;
+    top: 16px;
+}
+
+/* ++++++++++++++++++++++++++++++++++++++++++ */
+ /* Estilos mejorados para la lista desplegable */
+ .custom-dropdown {
+    min-width: 150px;
+    height: 130px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+}
+.custom-dropdown li {
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.custom-dropdown li {
+    text-align: center;
+}
+
+.custom-dropdown li:hover {
+    background-color: #eeeeee;
+}
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/* ------------------------------------------------------------- */
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .custom-dropdown {
+        min-width: 100px;
+        height: 120px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+    }
+    .main-title {
+        font-size: 28px;
+        margin-left: 12px;
+    }
+    .custom-icon {
+        left: 14px;
+    }
+
+    .username {
+        right: 46px;
+    }
+
+}

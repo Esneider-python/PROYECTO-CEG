@@ -1,0 +1,88 @@
+/* estilo boton salir */
+#boton-salir{
+    border-radius: 15px;
+    width: 16%;
+}
+
+.main-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+/* Contenedor principal */
+.container {
+    margin-top: 30px;
+    max-width: 80%;
+}
+
+/* Estilos de la tabla */
+table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: white;
+    font-weight: bold;
+}
+
+/* Estilos del botón Salir */
+.center-align {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+/* Configuración para dispositivos móviles */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    
+}
+
+
+@media screen and (max-width: 600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    th, td {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .dropdown-trigger {
+        font-size: 20px;
+        margin-left: 10px; /* Mueve el icono más a la izquierda */
+    }
+    #boton-salir {
+        width: 30%;
+        font-size: 16px;
+        padding: 0px;
+    }
+    .main-title {
+        font-size: 18px;
+        text-align: center;
+    }
+}

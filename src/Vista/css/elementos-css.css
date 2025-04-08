@@ -1,0 +1,241 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para los elementos */
+.container {
+    margin-top: 20px;
+}
+
+.color-filas {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+.perso-fila{
+    height: 40px;
+}
+/* Estilo para el buscador */
+.search-container {
+    height: 90px;
+    margin-top: 20px;
+    padding: 5px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* para los inputs */
+.input-field{
+    height: 50px;
+}
+/* para el boton salir */
+#boton-salir{
+    width: 13%;
+    border-radius: 15px;
+}
+
+/* estilos div informacion elemento */
+#div-info {
+    text-align: start;
+}
+p{
+    margin-top: -8px;
+}
+.bold {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nu-ele {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Estilos para los botones */
+.waves-effect.waves-light.btn.blue {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+.waves-effect.waves-light.btn.blue:hover {
+    background-color: #1976d2;
+}
+
+/* Estilos para las opciones */
+.options .color-filas {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.options .color-filas .col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+/* CONFIGURACION BOTON ELIMINAR */
+i {
+    cursor: pointer;
+}
+
+/* sobre poner opcion de eliminar elemento */
+.superpuesto {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 400px;
+    max-width: 90%;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* configuracion para los botones de card */
+.card-action button {
+    margin: 5px;
+}
+
+/* CONFIGURACION BOTON  */
+
+.superpuesto-estado {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+}
+
+.card-estado {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 1, 1, 0.2);
+}
+
+
+/* ESTILOS FORMULARIO MOVER ELEMENTO */
+.superpuesto-mover-elemento {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+}
+
+/*estilo icono de agregar identificacion */
+#icon-identi {
+    color: white;
+}
+
+.card-mover {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 1, 1, 0.2);
+}
+
+/* ESTILOS PARA BOTON AGG IDENTIFICADOR */
+
+.superpuesto-agg-id {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+}
+
+.card-add-id {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 1, 1, 0.2);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro semitransparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* Más alto que cualquier otro elemento */
+    pointer-events: auto;
+    /* Bloquea interacción con elementos detrás */
+}
+
+@media (max-width: 600px) {
+    .superpuesto {
+        position: fixed;
+        top: 50%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        width: 400px;
+        max-width: 90%;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    #boton-salir{
+        width: 16%;
+        border-radius: 15px;
+    }
+    #div-info{
+        height: 230px;
+    }
+    .bold {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    p{
+        margin-top: auto;
+        margin-left: 5px;
+    }
+    .search-container {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-field{
+        height: 20px;
+    }
+    
+    
+
+
+
+}

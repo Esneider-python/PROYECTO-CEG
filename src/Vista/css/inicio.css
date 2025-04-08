@@ -1,0 +1,73 @@
+/* Estilos generales */
+body {
+    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+/* Logo y cabecera */
+.center-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.center-logo img {
+    max-width: 200px;
+    height: auto;
+}
+
+h1.font {
+    font-size: 3rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Botones */
+.btn-large {
+    width: 180px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-large:hover {
+    background-color: #1565c0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    h1.font {
+        font-size: 2rem;
+    }
+
+    .center-logo img {
+        max-width: 120px;
+    }
+
+    .btn-large {
+        width: 160px;
+        font-size: 1rem;
+    }
+    a{
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .row-altura-1 {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn-large {
+        width: 100%;
+    }
+}

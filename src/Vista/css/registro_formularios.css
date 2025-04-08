@@ -1,0 +1,182 @@
+.hidden {
+    display: none;
+}
+
+.config_form {
+    height: 400px;
+    margin-left: 40%;
+    width: 300px;
+}
+
+.center {
+    background-color: #1976d2;
+    margin-left: 32%;
+    margin-top: 10px;
+}
+
+#formulario-registrar-elementos-tec {
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-elementos-mob {
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-usuarios {
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-colegio {
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+
+#formulario-registrar-rol {
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+
+#formulario-registrar-sede{
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-bloque{
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-piso{
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+#formulario-registrar-aula{
+    width: 26%;
+    height: 60%;
+    color: black;
+    margin-left: 450px;
+}
+
+.input-field {
+    width: 100%;
+    margin: 1%;
+}
+
+
+/* ------------------------------------- */
+/* ------------------------- */
+/* ------------- */
+/* quitar margenes en el body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Configuracion para las columnas en tamaño mediano */
+.col.m12 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* configuracion del contenedor */
+.container-30 {
+    max-height: 100vh;
+    margin-top: 10px;
+}
+
+/* altura para la fila boton salir */
+/* ------------------ */
+.altura-salir {
+    height: 50px;
+    margin-bottom: 0 !important; /* Eliminar espacio extra debajo */
+    padding: 5px 0; /* Reducir el espacio interno *//* Evitar que ocupe más altura de lo necesario */
+}
+/* bton salir */
+/* ------------- */
+#btn-salir{
+    width: 100%;
+    margin-top: 42px;
+    border-radius: 15px;
+}
+
+/* Configuracion para las columnas en tamaño pequeño */
+.col.s12 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+/* Centrar el boton "Salir" */
+/* Centrar el botón "Salir" y subirlo un poco */
+
+.altura-salir {
+    height: 50px;
+    margin-bottom: 0 !important; /* Eliminar espacio extra debajo */
+    padding: 5px 0; /* Reducir el espacio interno *//* Evitar que ocupe más altura de lo necesario */
+}
+/* bton salir */
+/* ------------- */
+#btn-salir{
+    width: 100%;
+    margin-top: 42px;
+    border-radius: 15px;
+}
+
+/* Centrar el boton "Salir" */
+/* Centrar el botón "Salir" y subirlo un poco */
+.abs-center {
+    color: white;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    bottom: 40px; /* Reducido desde 50% para subirlo */
+}
+
+
+/* Ajustar el tamaño de los botones */
+.btn-floatin {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+/* Aumentar el espacio entre los botones */
+.altura {
+    margin-bottom: 8px;
+    height: auto;
+}
+
+/* Asegurar que los textos asociados estén bien posicionados */
+.bold-margin {
+    margin-left: 10px;
+}
+
+/* posicion del icono del boton horizontal*/
+.custom-btn i {
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+
+}
+/* configuracion de los botones de registros horizontales */
+.botones-elementos{
+    margin-left: 5%;
+}

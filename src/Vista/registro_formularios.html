@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- ajax -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link href="css/nav.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/registro_formularios.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/9dca072a95.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros general</title>
+</head>
+
+<body>
+    <div class="dropdown-wrapper">
+        <ul id="dropdown1" class="dropdown-content custom-dropdown dropdown-wrapper">
+            <li>Actualizar</li>
+            <li>Salir</li>
+        </ul>
+    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <h3 class="main-title">Modulo de registros</h3>
+            <ul class="right hide-on-med-and-down show-on-med-and-up">
+                <li>
+                    <i class="fas fa-user dropdown-trigger custom-icon" data-target="dropdown1"></i>
+                    <span><span class="username">Esneider</span></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- botones -->
+    <div class="container-30">
+        <div id="fila1" class="row altura">
+            <div class="col s12 m12 l12 ">
+                <a id="btn-registrar-elementos"
+                    class=" btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                        class="material-icons">create</i></a>
+                <p class="bold-margin">Registrar elementos</p>
+                <a id="r_elm_tecnologicos"
+                    class="btn-floating btn-large waves-effect waves-light grey darken-4 botones-elementos hidden"><i
+                        class="material-icons">computer</i></a>
+                <p class="bold-margin parrafo hidden">Elementos tecnológicos</p>
+                <a id="btn-re-e-mob"
+                    class="btn-floating btn-large waves-effect waves-light grey darken-4 botones-elementos hidden"><i
+                        class="material-icons">desk</i></a>
+                <p class="bold-margin parrafo hidden">Elementos Mobiliarios</p>
+            </div>
+        </div>
+    </div>
+    <!-- fin del desarrollo -->
+
+    <!-- Formulario de registro elementos tecnológicos -->
+    <div id="formulario-registrar-elementos-tec" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nombre" type="text" class="validate">
+                <label for="nombre">Nombre</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="estado" type="text" class="validate">
+                <label for="tipo">Estado</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="marca" type="text" class="validate">
+                <label for="marca">Marca</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="serial" type="text" class="validate">
+                <label for="serial">Serie</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_usuario" type="number" class="validate">
+                <label for="Usuario">Usuario</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_aula" type="number" class="validate">
+                <label for="Aula">Aula</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="identificador" type="text" class="validate">
+                <label for="identificador">Identificador Único</label>
+                <a href="#" class="btn-flat waves-effect waves-light right">
+                    <i class="material-icons">qr_code</i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de registro elementos mobiliarios -->
+    <div id="formulario-registrar-elementos-mob" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nombre" type="text" class="validate">
+                <label for="nombre">Nombre</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="estado" type="text" class="validate">
+                <label for="estado">Estado</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_usuario" type="number" class="validate">
+                <label for="Usuario">Usuario</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_aula" type="number" class="validate">
+                <label for="Aula">Aula</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="identificador" type="text" class="validate">
+                <label for="identificador">Identificador Único</label>
+                <a href="#" class="btn-flat waves-effect waves-light right">
+                    <i class="material-icons">qr_code</i>
+                </a>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones para el resto de formularios -->
+    <div id="fila2" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-usuarios" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Registrar usuarios</p>
+        </div>
+    </div>
+
+    <!-- Formulario para registrar usuarios -->
+    <div id="formulario-registrar-usuarios" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nombre" type="text" class="validate">
+                <label for="nombre">Nombres</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="Apellidos" type="text" class="validate">
+                <label for="Apellidos">Apellidos</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="telefono" type="text" class="validate">
+                <label for="telefono">Teléfono</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="gmail" type="text" class="validate">
+                <label for="gmail">Correo</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="cedula" type="number" class="validate">
+                <label for="cedula">Cedula</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="contraseña" type="password" class="validate">
+                <label for="contraseña">Contraseña</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="rl" type="number" class="validate">
+                <label for="rol">Rol usuario</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formularios adicionales de registro -->
+    <div id="fila3" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-rol" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Rol</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-rol" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nombre_rol" type="text" class="validate">
+                <label for="rol">Descripción</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fila4" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-colegio" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Colegio</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-colegio" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="desp" type="text" class="validate">
+                <label for="descripcion">Descripción</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="Usuario_o" type="text" class="validate">
+                <label for="Usuario">Quien registra</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fila5" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-sede" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Sede</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-sede" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nombre_sede" type="text" class="validate">
+                <label for="no_sede">Nombre Sede</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_colegio" type="text" class="validate">
+                <label for="id_cole">Colegio</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_usuario" type="text" class="validate">
+                <label for="id_usu">Usuario</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fila6" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-bloque" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Bloque</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-bloque" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="num" type="number" class="validate">
+                <label for="num_bloque">Número Bloque</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_sede" type="number" class="validate">
+                <label for="sede">Sede</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_usuario" type="number" class="validate">
+                <label for="usuario">Usuario</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fila7" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-piso" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Piso</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-piso" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="nuum_bloque" type="number" class="validate">
+                <label for="nro_bloque">Número Bloque</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_bloque" type="number" class="validate">
+                <label for="bloque">Bloque</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="id_usuario" type="number" class="validate">
+                <label for="id_usu">Usuario</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fila8" class="row altura">
+        <div class="col s12 m12 l12">
+            <a id="btn-registrar-aula" class="btn-floating btn-large waves-effect waves-light grey darken-4"><i
+                    class="material-icons">create</i></a>
+            <p class="bold-margin">Aula</p>
+        </div>
+    </div>
+
+    <div id="formulario-registrar-aula" class="hidden">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <input id="num_aula" type="number" class="validate">
+                <label for="aula_num">Número</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="piso_id" type="number" class="validate">
+                <label for="piso_nro">Piso</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <input id="usuario_id" type="number" class="validate">
+                <label for="usaurio_nro">Usuario</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <button class="waves-effect waves-light btn center" type="submit">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="altura-salir">
+        <div class="col s12  m12 l12 ">
+            <div class="container abs-center">
+                <button id="btn-salir" class="btn black white-text waves-effect waves-light">Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Js personalizado -->
+    <script src="js/init-nav.js"></script>
+    <script src="js/registro_formularios.js"></script>
+    <script src="js/formulario_redireccion_data.js"></script>
+</body>
+
+</html>

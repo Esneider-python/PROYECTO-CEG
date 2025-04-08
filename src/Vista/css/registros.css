@@ -1,0 +1,131 @@
+/* quitar margenes en el body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Configuracion para las columnas en tamaño mediano */
+.col.m12 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* configuracion del contenedor */
+.container-30 {
+    max-height: 100vh;
+    margin-top: 10px;
+}
+
+
+/* Configuracion para las columnas en tamaño pequeño */
+.col.s12 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+/* Centrar el boton "Salir" */
+.abs-center {
+    color: white;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Ajustar el tamaño de los botones */
+.btn-floatin {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+/* Aumentar el espacio entre los botones */
+.altura {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+/* Asegurar que los textos asociados estén bien posicionados */
+.bold-margin {
+    margin-left: 10px;
+}
+
+.custom-btn {
+    padding: 10px;
+    border-radius: 50px;
+    width: 100px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* posicion del icono del boton horizontal*/
+.custom-btn i {
+    width: 40px;
+    display: inline-block;
+    margin-right: 20px;
+
+}
+
+/* pocision del span y color  */
+.custom-btn span {
+    display: inline-block;
+    margin-left: -25px;
+    color: white;
+}
+
+/* Configuracion para dispositivos moviles */
+@media (max-width: 768px) {
+    .col.s12.m12.l12 {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .btn-floating.btn-large {
+        width: 40px;
+        /* Tamaño reducido para botones en móviles */
+        height: 40px;
+        /* Tamaño reducido para botones en móviles */
+    }
+
+    .btn-floatin i {
+        margin-top: 20px;
+    }
+
+    .altura {
+        height: 50px;
+        /* Altura reducida para filas en móviles */
+        margin-bottom: 5px;
+        /* Espacio reducido entre filas en móviles */
+    }
+
+    .bold-margin {
+        font-size: 12px;
+        /* Tamaño de fuente reducido para texto en móviles */
+        margin-top: 8px;
+        /* Espacio reducido entre botón y texto en móviles */
+    }
+
+    .material-icons {
+        font-size: 18px;
+        /* Tamaño reducido para iconos en móviles */
+    }
+
+    .btn-floating.btn-large i {
+        line-height: 35px
+    }
+
+
+
+
+}

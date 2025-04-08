@@ -1,0 +1,45 @@
+// Función para obtener los datos desde localStorage
+function obtenerDatosDesdeLocalStorage() {
+    return JSON.parse(localStorage.getItem("elementos")) || [];
+}
+
+// Función para crear y mostrar cada elemento en el DOM
+function mostrarElemento(item) {
+    let contenedor = document.getElementById("contenedorElementos");
+
+    // Crear el div padre
+    let divPadre = document.createElement("div");
+    divPadre.classList.add("card");
+
+    // Crear el div hijo con la información
+    let divHijo = document.createElement("div");
+    divHijo.classList.add("card-content");
+
+    let pNombre = document.createElement("p");
+    pNombre.textContent = `Nombre: ${item.nombre}`;
+
+    let pMarca = document.createElement("p");
+    pMarca.textContent = `Marca: ${item.marca}`;
+
+    // Agregar elementos al div hijo
+    divHijo.appendChild(pNombre);
+    divHijo.appendChild(pMarca);
+
+    // Agregar hijo al padre
+    divPadre.appendChild(divHijo);
+
+    // Agregar al contenedor
+    contenedor.appendChild(divPadre);
+}
+
+// Función para cargar todos los elementos y mostrarlos
+function cargarElementos() {
+    let elementos = obtenerDatosDesdeLocalStorage();
+    elementos.forEach(mostrarElemento);
+}
+
+// Ejecutar la función cuando se cargue la página
+document.addEventListener("DOMContentLoaded", cargarElementos);
+
+
+para pensar

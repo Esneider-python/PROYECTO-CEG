@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informes de Movimientos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9dca072a95.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/informes.css">
+</head>
+
+<body>
+    <div class="dropdown-wrapper">
+        <ul id="dropdown1" class="dropdown-content custom-dropdown dropdown-wrapper">
+            <li>Actualizar</li>
+            <li>Salir</li>
+        </ul>
+    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <h3 class="main-title">Informes</h3>
+            <ul class="right hide-on-med-and-down show-on-med-and-up">
+                <li>
+                    <i class="fas fa-user dropdown-trigger custom-icon" data-target="dropdown1"></i>
+                    <span><span class="username">Esneider</span></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container section">
+        <h5>Generar Informes</h5>
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="card blue lighten-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Artículos vigentes en aula</span>
+                        <p>Informe de los artículos que están actualmente en las aulas.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="btn white black-text generate-report" data-type="vigentes">Generar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card red lighten-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Artículos eliminados</span>
+                        <p>Informe de los artículos que han sido dados de baja.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="btn white black-text generate-report" data-type="eliminados">Generar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card green lighten-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Artículos en la sede</span>
+                        <p>Informe general de todos los artículos en la sede.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="btn white black-text generate-report" data-type="sede">Generar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card yellow darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Artículos movidos</span>
+                        <p>Informe de los artículos que han sido reubicados.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="btn white black-text generate-report" data-type="movidos">Generar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container center">
+        <a class="btn waves-effect waves-light black" href="#">Salir</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
+    <script src="js/init-nav.js"></script>
+</body>
+
+</html>

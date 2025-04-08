@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="css/nav.css" type="text/css" rel="stylesheet">
+    <link href="css/elementos-css.css" type="text/css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9dca072a95.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementos </title>
+</head>
+
+<body>
+    <div class="dropdown-wrapper">
+        <ul id="dropdown1" class="dropdown-content custom-dropdown">
+            <li>Actualizar</li>
+            <li>Salir</li>
+        </ul>
+    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <h3 class="main-title">Elementos registrados</h3>
+            <ul class="right hide-on-med-and-down show-on-med-and-up">
+                <li>
+                    <i class="fas fa-user dropdown-trigger custom-icon" data-target="dropdown1"></i>
+                    <span class="username">Esneider</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container search-container">
+        <div class="row ">
+            <div class="input-field col s12 m4">
+                <input type="text" id="buscar-id" class="validate">
+                <label for="buscar-id">Buscar por ID</label>
+            </div>
+            <div class="input-field col s12 m4">
+                <input type="text" id="buscar-tipo" class="validate">
+                <label for="buscar-tipo">Buscar por Tipo</label>
+            </div>
+            <div class="input-field col s12 m4">
+                <input type="text" id="buscar-usuario" class="validate">
+                <label for="buscar-usuario">Buscar por Usuario</label>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="row perso-fila color-filas">
+                <div class="col s2 m1 l1 ">
+                    <i id="id-ver-info" class="material-icons center">visibility</i>
+                </div>
+                    <div class="col s2 m2 l1">
+                    <p class="bold nu-ele">Elemento:</p>
+                </div>
+                <div class="col s2 m2 l2">
+                    <p class="nu-ele">1134</p>
+                </div>
+                <div class="col s1 m1 l1 ">
+                    <p class="bold nu-ele">Tipo:</p>
+                </div>
+                <div class="col s3 m6 l7 ">
+                    <p class="nu-ele">(Mobiliario)</p>
+                </div>
+            </div>
+            <div id="div-info" class=" color-filas hidden">
+                <p><strong class="bold">Nombre:</strong> Platillo</p>
+                <p><strong class="bold">Estado:</strong> Regular</p>
+                <p><strong class="bold">Usuario:</strong> 1004921566</p>
+                <p><strong class="bold">Aula:</strong> 4</p>
+                <p><strong class="bold">Identificador:</strong> s333333</p>
+                <button id="boton-opciones" class="waves-effect waves-light btn blue" type="submit">Acciones</button>
+            </div>
+            <div id="linea-opcion" class="options hidden">
+                <div class="row color-filas center">
+                    <div class="col s12 m12 l12 ">
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="deleteButton" class="material-icons center">delete</i></a>
+                        </div>
+                        <div class="tooltip" id="delete-e">Eliminar elemento</div>
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="modifyButton" class="material-icons center">edit</i></a>
+                        </div>
+                        <div class="tooltip" id="modify-e">Cambiar estado</div>
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="moverButton" class="material-icons center">home</i></a>
+                        </div>
+                        <div class="tooltip" id="move-e">Mover elemento</div>
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="agregarRegistroButton" class="material-icons center">add</i></a>
+                        </div>
+                        <div class="tooltip" id="add-e">Agregar Identificador</div>
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="agregarReporte" class="material-icons center">assignment</i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="card-overlay">
+                <div class="superpuesto hidden">
+                    <div class="row">
+                        <div class="col s8 m12 l12">
+                            <div class="card blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Eliminar definitivamente?</span>
+                                </div>
+                                <div class="card-action center">
+                                    <button id="confirmarBtn"
+                                        class="waves-effect waves-light btn green">Confirmar</button>
+                                    <button id="rechazarBtn" class="waves-effect waves-light btn red">Cancelar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card-overlay1">
+                <div class="superpuesto-estado hidden">
+                    <div class="row">
+                        <div class="col s8 m12 l12">
+                            <div class="card-estado blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Ingresa el estado del elemento</span>
+                                </div>
+                                <div class="input">
+                                    <input id="id_estado" type="text" class="validate">
+                                </div>
+                                <div class="card-action center">
+                                    <button id="confirmarBtn"
+                                        class="waves-effect waves-light btn green">Guardar</button>
+                                    <button id="rechazarBtn-estado"
+                                        class="waves-effect waves-light btn red">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card-overlay2">
+                <div class="superpuesto-mover-elemento hidden ">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div class="card-mover blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Selecciona aula destino</span>
+                                </div>
+                                <form id="formMoverElemento">
+                                    <div class="input-field">
+                                        <select id="nuevaAula" name="nuevaAula" required>
+                                            <option value="" disabled selected>Aulas</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn green" type="submit">Mover Elemento</button>
+                                    <button id="btn-cancelar-mover" class="btn red" type="submit">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card-overlay3">
+                <div class="superpuesto-agg-id hidden">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div class="card-add-id blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Ingresa el identificador</span>
+                                </div>
+                                <div class="input-field col s12 m12 l12">
+                                    <input id="identificador" type="text" class="validate">
+                                    <a href="#" class="btn-flat waves-effect waves-light right">
+                                        <i id="icon-identi" class="material-icons">qr_code</i>
+                                    </a>
+                                </div>
+                                <button class="btn green" type="submit">Agregar</button>
+                                <button id="btn-cancelar-agregar" class="btn red" type="submit">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container center-align">
+            <button id="boton-salir" class="waves-effect waves-light btn black">Salir</button>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/init-nav.js"></script>
+    <script src="js/elementos.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="css/nav.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="https://kit.fontawesome.com/9dca072a95.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/historial-movimientos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial movimientos </title>
+</head>
+
+<body>
+    <div class="dropdown-wrapper">
+        <ul id="dropdown1" class="dropdown-content custom-dropdown">
+            <li>Actualizar</li>
+            <li>Salir</li>
+        </ul>
+    </div>
+    <nav>
+        <div class="nav-wrapper">
+            <h3 class="main-title">Historial movimientos</h3>
+            <ul class="right hide-on-med-and-down show-on-med-and-up">
+                <li>
+                    <i class="fas fa-user dropdown-trigger custom-icon" data-target="dropdown1"></i>
+                    <span class="username">Esneider</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    <div class="container">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>ID Elemento</th>
+                    <th>Tipo</th>
+                    <th>Aula Origen</th>
+                    <th>Aula Destino</th>
+                    <th>Fecha de Movimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Mobiliario</td>
+                    <td>Aula 101</td>
+                    <td>Aula 102</td>
+                    <td>25/03/2025</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Equipo</td>
+                    <td>Aula 203</td>
+                    <td>Aula 201</td>
+                    <td>26/03/2025</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="center-align">
+                <button class="btn black btn-exit">Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/init-nav.js"></script>
+</body>
+
+</html>
