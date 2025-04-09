@@ -1,4 +1,3 @@
-
 -- Crear base de datos
 CREATE DATABASE IF NOT EXISTS Data_Inventario_elementos;
 USE Data_Inventario_elementos;
@@ -67,7 +66,7 @@ CREATE TABLE elementos (
     estado VARCHAR(50) NOT NULL,
     usuario_registra INT NOT NULL,
     aula_id INT NOT NULL,
-    identificador_unico VARCHAR(100) UNIQUE NOT NULL,
+    identificador_unico VARCHAR(100) UNIQUE NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_registra) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (aula_id) REFERENCES aulas(id_aula)
@@ -107,4 +106,17 @@ CREATE TABLE reporte (
     usuario_reporta INT NOT NULL,
     FOREIGN KEY (elemento_reportado) REFERENCES elementos(id_elemento),
     FOREIGN KEY (usuario_reporta) REFERENCES usuarios(id_usuario)
+);
+
+-- Tabla de historial de movimientos
+CREATE TABLE historial_movimientos (
+    id_historial_movimientos INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_elemento ENUM('mobiliario', 'tecnologico') NOT NULL,
+    aula_origen INT NOT NULL,
+    aula_destino INT NOT NULL,
+    usuario_movio INT NOT NULL,
+    fecha_movimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (aula_origen) REFERENCES aulas(id_aula),
+    FOREIGN KEY (aula_destino) REFERENCES aulas(id_aula),
+    FOREIGN KEY (usuario_movio) REFERENCES usuarios(id_usuario)
 );

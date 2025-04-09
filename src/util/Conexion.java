@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Conexion {
     private static final String URL = "jdbc:mysql://localhost:3306/databaselapaz";
-    private static final String USUARIO = "NAN"; // Cambia si usas otro usuario
-    private static final String CLAVE = "1004921685";       // Escribe tu contraseña si tienes una
+    private static final String USUARIO = "NAN"; 
+    private static final String CLAVE = "1004921685";
 
     public static Connection getConexion() {
         try {
