@@ -97,7 +97,7 @@ CREATE TABLE informes (
     FOREIGN KEY (usuario_generador) REFERENCES usuarios(id_usuario)
 );
 
--- Tabla de reportes
+-- Tabla de reporte
 CREATE TABLE reporte (
     id_reporte INT AUTO_INCREMENT PRIMARY KEY,
     fecha_hora_reporte TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -119,4 +119,15 @@ CREATE TABLE historial_movimientos (
     FOREIGN KEY (aula_origen) REFERENCES aulas(id_aula),
     FOREIGN KEY (aula_destino) REFERENCES aulas(id_aula),
     FOREIGN KEY (usuario_movio) REFERENCES usuarios(id_usuario)
+);
+
+-- Tabla de elementos eliminados
+CREATE TABLE elementos_eliminados (
+    id_elemento_eliminado INT AUTO_INCREMENT PRIMARY KEY,
+    elemento_id INT NOT NULL,
+    motivo_eliminacion TEXT NOT NULL,
+    fecha_hora_eliminacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_elimino INT NOT NULL,
+    FOREIGN KEY (elemento_id) REFERENCES elementos(id_elemento),
+    FOREIGN KEY (usuario_elimino) REFERENCES usuarios(id_usuario)
 );

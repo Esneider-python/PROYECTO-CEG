@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 // LISTA DE METODOS
 
 // Inserción de elementos generales, tecnológicos y mobiliarios.
@@ -17,7 +16,6 @@ import java.util.List;
 // Consulta por usuario.
 // Consulta por ID, identificando tipo y atributos extra (marca, serie).
 // Diseño limpio respetando herencia y tu estructura de base de datos.
-
 
 public class ElementoDao {
     // INSERTAR NUEVO ELEMENTO
@@ -47,7 +45,7 @@ public class ElementoDao {
                 }
             }
 
-            System.out.println("✅ Elemento registrado correctamente.");
+            System.out.println("Elemento registrado correctamente.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,7 +61,7 @@ public class ElementoDao {
             stmt.setString(2, t.getMarca());
             stmt.setString(3, t.getSerie());
             stmt.executeUpdate();
-            System.out.println("🖥️ Tecnológico insertado.");
+            System.out.println("Tecnológico insertado.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -300,5 +298,149 @@ public class ElementoDao {
             return rs.next();
         }
     }
+
+    // Reportar un elemento
+    
+    public boolean reportarElemento(int idElemento, int idUsuario, String descripcion, String nuevoEstado) {
+        String sqlInsertReporte = "INSERT INTO reporte (descripcion, elemento_reportado, usuario_reporta) VALUES (?, ?, ?)";
+        String sqlActualizarEstado = "UPDATE elementos SET estado = ? WHERE id = ?";
+    
+        try (Connection conexion = Conexion.getConexion()) {
+            conexion.setAutoCommit(false);
+    
+            try (
+                PreparedStatement insertarReporte = conexion.prepareStatement(sqlInsertReporte);
+                PreparedStatement actualizarEstado = conexion.prepareStatement(sqlActualizarEstado)
+            ) {
+                // Insertar el reporte
+                insertarReporte.setString(1, descripcion);
+                insertarReporte.setInt(2, idElemento);
+                insertarReporte.setInt(3, idUsuario);
+                insertarReporte.executeUpdate();
+    
+                // Cambiar el estado del elemento
+                actualizarEstado.setString(1, nuevoEstado);
+                actualizarEstado.setInt(2, idElemento);
+                actualizarEstado.executeUpdate();
+    
+                conexion.commit();
+                return true;
+            } catch (SQLException e) {
+                conexion.rollback();
+                e.printStackTrace();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // Actualizar elemento
+   
+    public void actualizarElemento(Elemento elemento) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement stmtHijo = null;
+    
+        try {
+            conn = Conexion.getConnection();
+    
+            // 1. Actualizamos en la tabla principal 'elementos'
+            String sql = "UPDATE elementos SET nombre = ?, estado = ?, usuario_registra = ?, aula = ?, identificador_unico = ? WHERE id_elemento = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, elemento.getNombre());
+            stmt.setString(2, elemento.getEstado());
+            stmt.setInt(3, elemento.getUsuarioRegistra());
+            stmt.setInt(4, elemento.getAulaId());
+            stmt.setString(5, elemento.getIdentificadorUnico());
+            stmt.setInt(6, elemento.getIdElemento());
+            stmt.executeUpdate();
+    
+            // 2. Verificamos si es mobiliario o tecnológico para actualizar la tabla respectiva
+            if (elemento instanceof ElementosMobiliarios) {
+                ElementosMobiliarios em = (ElementosMobiliarios) elemento;
+                String sqlM = "UPDATE elementos_mobiliarios SET material = ? WHERE id_elemento = ?";
+                stmtHijo = conn.prepareStatement(sqlM);
+                stmtHijo.setInt(2, em.getIdElemento());
+                stmtHijo.executeUpdate();
+    
+            } else if (elemento instanceof ElementoTecnologico) {
+                ElementoTecnologico et = (ElementoTecnologico) elemento;
+                String sqlT = "UPDATE elementos_tecnologicos SET marca = ?, serie = ? WHERE id_elemento = ?";
+                stmtHijo = conn.prepareStatement(sqlT);
+                stmtHijo.setString(1, et.getMarca());
+                stmtHijo.setString(2, et.getSerie());
+                stmtHijo.setInt(3, et.getIdElemento());
+                stmtHijo.executeUpdate();
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmtHijo != null) stmtHijo.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+           
+           
+           
+           
+           
+           
+    
+           
+           
+           
+           
+           
+           
+           
+           
+           
+    
+           
+           
+           
+           
+           
+           
+           
+           
+    
+           
+    
+        } c
+           
+           
+    
+        } f
+            try {
+                if (stmtElemento != null) stmtElemento.close();
+                if (stmtHijo != null) stmtHijo.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    
+
 
 }
