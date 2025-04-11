@@ -300,29 +300,28 @@ public class ElementoDao {
     }
 
     // Reportar un elemento
-    
+
     public boolean reportarElemento(int idElemento, int idUsuario, String descripcion, String nuevoEstado) {
         String sqlInsertReporte = "INSERT INTO reporte (descripcion, elemento_reportado, usuario_reporta) VALUES (?, ?, ?)";
         String sqlActualizarEstado = "UPDATE elementos SET estado = ? WHERE id = ?";
-    
+
         try (Connection conexion = Conexion.getConexion()) {
             conexion.setAutoCommit(false);
-    
+
             try (
-                PreparedStatement insertarReporte = conexion.prepareStatement(sqlInsertReporte);
-                PreparedStatement actualizarEstado = conexion.prepareStatement(sqlActualizarEstado)
-            ) {
+                    PreparedStatement insertarReporte = conexion.prepareStatement(sqlInsertReporte);
+                    PreparedStatement actualizarEstado = conexion.prepareStatement(sqlActualizarEstado)) {
                 // Insertar el reporte
                 insertarReporte.setString(1, descripcion);
                 insertarReporte.setInt(2, idElemento);
                 insertarReporte.setInt(3, idUsuario);
                 insertarReporte.executeUpdate();
-    
+
                 // Cambiar el estado del elemento
                 actualizarEstado.setString(1, nuevoEstado);
                 actualizarEstado.setInt(2, idElemento);
                 actualizarEstado.executeUpdate();
-    
+
                 conexion.commit();
                 return true;
             } catch (SQLException e) {
@@ -335,112 +334,151 @@ public class ElementoDao {
             return false;
         }
     }
+
     // Actualizar elemento
-   
-    public void actualizarElemento(Elemento elemento) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        PreparedStatement stmtHijo = null;
+    public boolean actualizarElemento(Elemento elemento) {
+        String sqlUpdateElemento = "UPDATE elementos SET nombre = ?, estado = ?, aula_id = ?, identificador_unico = ? WHERE id_elemento = ?";
+        String sqlCheckTecnologico = "SELECT COUNT(*) FROM elementos_tecnologicos WHERE elemento_id = ?";
+        String sqlUpdateTecnologico = "UPDATE elementos_tecnologicos SET marca = ?, serie = ? WHERE elemento_id = ?";
     
-        try {
-            conn = Conexion.getConnection();
+        try (Connection conn = Conexion.getConexion()) {
     
-            // 1. Actualizamos en la tabla principal 'elementos'
-            String sql = "UPDATE elementos SET nombre = ?, estado = ?, usuario_registra = ?, aula = ?, identificador_unico = ? WHERE id_elemento = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, elemento.getNombre());
-            stmt.setString(2, elemento.getEstado());
-            stmt.setInt(3, elemento.getUsuarioRegistra());
-            stmt.setInt(4, elemento.getAulaId());
-            stmt.setString(5, elemento.getIdentificadorUnico());
-            stmt.setInt(6, elemento.getIdElemento());
-            stmt.executeUpdate();
-    
-            // 2. Verificamos si es mobiliario o tecnológico para actualizar la tabla respectiva
-            if (elemento instanceof ElementosMobiliarios) {
-                ElementosMobiliarios em = (ElementosMobiliarios) elemento;
-                String sqlM = "UPDATE elementos_mobiliarios SET material = ? WHERE id_elemento = ?";
-                stmtHijo = conn.prepareStatement(sqlM);
-                stmtHijo.setInt(2, em.getIdElemento());
-                stmtHijo.executeUpdate();
-    
-            } else if (elemento instanceof ElementoTecnologico) {
-                ElementoTecnologico et = (ElementoTecnologico) elemento;
-                String sqlT = "UPDATE elementos_tecnologicos SET marca = ?, serie = ? WHERE id_elemento = ?";
-                stmtHijo = conn.prepareStatement(sqlT);
-                stmtHijo.setString(1, et.getMarca());
-                stmtHijo.setString(2, et.getSerie());
-                stmtHijo.setInt(3, et.getIdElemento());
-                stmtHijo.executeUpdate();
+            // 1. Actualizar tabla elementos
+            try (PreparedStatement stmtElemento = conn.prepareStatement(sqlUpdateElemento)) {
+                stmtElemento.setString(1, elemento.getNombre());
+                stmtElemento.setString(2, elemento.getEstado());
+                stmtElemento.setInt(3, elemento.getAulaId());
+                stmtElemento.setString(4, elemento.getIdentificadorUnico());
+                stmtElemento.setInt(5, elemento.getIdElemento());
+                stmtElemento.executeUpdate();
             }
     
+            // 2. Verificar si el elemento está en elementos_tecnologicos
+            boolean esTecnologico = false;
+            try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckTecnologico)) {
+                stmtCheck.setInt(1, elemento.getIdElemento());
+                ResultSet rs = stmtCheck.executeQuery();
+                if (rs.next()) {
+                    esTecnologico = rs.getInt(1) > 0;
+                }
+            }
+    
+            // 3. Si es tecnológico, actualizar marca y serie
+            if (esTecnologico && elemento instanceof ElementoTecnologico) {
+                ElementoTecnologico tecnologico = (ElementoTecnologico) elemento;
+    
+                try (PreparedStatement stmtTec = conn.prepareStatement(sqlUpdateTecnologico)) {
+                    stmtTec.setString(1, tecnologico.getMarca());
+                    stmtTec.setString(2, tecnologico.getSerie());
+                    stmtTec.setInt(3, tecnologico.getIdElemento());
+                    stmtTec.executeUpdate();
+                }
+            }
+    
+            return true;
+    
         } catch (SQLException e) {
+            System.out.println("Error al actualizar el elemento: " + e.getMessage());
+            return false;
+        }
+    }
+    // ELIMINAR ELEMENTO
+    public boolean eliminarElemento(int idElemento, int idUsuario, String motivoEliminacion) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        boolean eliminado = false;
+    
+        try {
+            conn = Conexion.getConexion();
+            conn.setAutoCommit(false); // Iniciar transacción
+    
+            // Verificar si el elemento existe
+            String verificar = "SELECT id_elemento FROM elementos WHERE id_elemento = ?";
+            ps = conn.prepareStatement(verificar);
+            ps.setInt(1, idElemento);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                return false; // Elemento no encontrado
+            }
+            rs.close();
+            ps.close();
+    
+            // Verificar si es tecnológico
+            boolean esTecnologico = false;
+            String verificarTecnologico = "SELECT id_tecnologico FROM elementos_tecnologicos WHERE elemento_id = ?";
+            ps = conn.prepareStatement(verificarTecnologico);
+            ps.setInt(1, idElemento);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                esTecnologico = true;
+            }
+            rs.close();
+            ps.close();
+    
+            // Registrar eliminación
+            String registrarEliminacion = "INSERT INTO elementos_eliminados (elemento_id, motivo_eliminacion, usuario_elimino) VALUES (?, ?, ?)";
+            ps = conn.prepareStatement(registrarEliminacion);
+            ps.setInt(1, idElemento);
+            ps.setString(2, motivoEliminacion);
+            ps.setInt(3, idUsuario);
+            ps.executeUpdate();
+            ps.close();
+    
+            // Eliminar del tipo específico
+            if (esTecnologico) {
+                String eliminarTec = "DELETE FROM elementos_tecnologicos WHERE elemento_id = ?";
+                ps = conn.prepareStatement(eliminarTec);
+                ps.setInt(1, idElemento);
+                ps.executeUpdate();
+                ps.close();
+            } else {
+                String eliminarMob = "DELETE FROM elementos_mobiliarios WHERE elemento_id = ?";
+                ps = conn.prepareStatement(eliminarMob);
+                ps.setInt(1, idElemento);
+                ps.executeUpdate();
+                ps.close();
+            }
+    
+            // Eliminar del registro principal
+            String eliminarElemento = "DELETE FROM elementos WHERE id_elemento = ?";
+            ps = conn.prepareStatement(eliminarElemento);
+            ps.setInt(1, idElemento);
+            ps.executeUpdate();
+            ps.close();
+    
+            conn.commit();
+            eliminado = true;
+    
+        } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
             try {
-                if (stmtHijo != null) stmtHijo.close();
-                if (stmt != null) stmt.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.setAutoCommit(true);
                 if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+    
+        return eliminado;
     }
     
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-           
-           
-           
-           
-           
-           
+
     
-           
-           
-           
-           
-           
-           
-           
-           
-           
-    
-           
-           
-           
-           
-           
-           
-           
-           
-    
-           
-    
-        } c
-           
-           
-    
-        } f
-            try {
-                if (stmtElemento != null) stmtElemento.close();
-                if (stmtHijo != null) stmtHijo.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-    
-    
+
+
+
+
+
+
+
 
 
 }
