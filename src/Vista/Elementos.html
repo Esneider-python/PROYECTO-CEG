@@ -52,7 +52,7 @@
                 <div class="col s2 m1 l1 ">
                     <i id="id-ver-info" class="material-icons center">visibility</i>
                 </div>
-                    <div class="col s2 m2 l1">
+                <div class="col s2 m2 l1">
                     <p class="bold nu-ele">Elemento:</p>
                 </div>
                 <div class="col s2 m2 l2">
@@ -89,8 +89,13 @@
                         </div>
                         <div class="tooltip" id="add-e">Agregar Identificador</div>
                         <div class="col s1 m1 l1  center">
-                            <a><i id="agregarReporte" class="material-icons center">assignment</i></a>
+                            <a><i id="btnActualizar" class="material-icons center">edit</i></a>
                         </div>
+                        <div class="tooltip" id="update-e">Actualizar elemento</div>
+                        <div class="col s1 m1 l1  center">
+                            <a><i id="btnReportar" class="material-icons center">report</i></a>
+                        </div>
+                        <div class="tooltip" id="report-e">Reportar elemento</div>
 
                     </div>
                 </div>
@@ -110,28 +115,6 @@
                                     <button id="rechazarBtn" class="waves-effect waves-light btn red">Cancelar</button>
                                 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="card-overlay1">
-                <div class="superpuesto-estado hidden">
-                    <div class="row">
-                        <div class="col s8 m12 l12">
-                            <div class="card-estado blue-grey darken-4">
-                                <div class="card-content white-text">
-                                    <span class="card-title">Ingresa el estado del elemento</span>
-                                </div>
-                                <div class="input">
-                                    <input id="id_estado" type="text" class="validate">
-                                </div>
-                                <div class="card-action center">
-                                    <button id="confirmarBtn"
-                                        class="waves-effect waves-light btn green">Guardar</button>
-                                    <button id="rechazarBtn-estado"
-                                        class="waves-effect waves-light btn red">Cancelar</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,6 +158,31 @@
                                 </div>
                                 <button class="btn green" type="submit">Agregar</button>
                                 <button id="btn-cancelar-agregar" class="btn red" type="submit">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card-overlay1">
+                <div class="superpuesto-reporte hidden">
+                    <div class="row">
+                        <div class="col s8 m12 l12">
+                            <div class="card-estado blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Reportando elemento</span>
+                                </div>
+                                <div class="input">
+                                    <input id="id_estado" type="text" class="validate" placeholder="Descripcion reporte">
+                                </div>
+                                <div class="input">
+                                    <input id="id_estado" type="number" class="validate" placeholder="Usuario accion">
+                                </div>
+                                <div class="card-action center">
+                                    <button id="confirmarBtn"
+                                        class="waves-effect waves-light btn green">Reportar</button>
+                                    <button id="rechazarBtn-estado" class="waves-effect waves-light btn red">
+                                        Cancelar</button>
+                                </div>
                             </div>
                         </div>
                     </div>

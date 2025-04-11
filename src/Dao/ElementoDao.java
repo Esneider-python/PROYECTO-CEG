@@ -306,7 +306,7 @@ public class ElementoDao {
         }
     }
 
-    // Reportar un elemento
+    // REPORTAR UN ELEMENTO
 
     public boolean reportarElemento(int idElemento, int idUsuario, String descripcion, String nuevoEstado) {
         String sqlInsertReporte = "INSERT INTO reporte (descripcion, elemento_reportado, usuario_reporta) VALUES (?, ?, ?)";
@@ -342,14 +342,15 @@ public class ElementoDao {
         }
     }
 
-    // Actualizar elemento
+    // ACTALIZAR UN ELEMENTO
+
     public boolean actualizarElemento(Elemento elemento) {
         String sqlUpdateElemento = "UPDATE elementos SET nombre = ?, estado = ?, aula_id = ?, identificador_unico = ? WHERE id_elemento = ?";
         String sqlCheckTecnologico = "SELECT COUNT(*) FROM elementos_tecnologicos WHERE elemento_id = ?";
         String sqlUpdateTecnologico = "UPDATE elementos_tecnologicos SET marca = ?, serie = ? WHERE elemento_id = ?";
-    
+
         try (Connection conn = Conexion.getConexion()) {
-    
+
             // 1. Actualizar tabla elementos
             try (PreparedStatement stmtElemento = conn.prepareStatement(sqlUpdateElemento)) {
                 stmtElemento.setString(1, elemento.getNombre());
@@ -359,7 +360,7 @@ public class ElementoDao {
                 stmtElemento.setInt(5, elemento.getIdElemento());
                 stmtElemento.executeUpdate();
             }
-    
+
             // 2. Verificar si el elemento está en elementos_tecnologicos
             boolean esTecnologico = false;
             try (PreparedStatement stmtCheck = conn.prepareStatement(sqlCheckTecnologico)) {
@@ -369,11 +370,11 @@ public class ElementoDao {
                     esTecnologico = rs.getInt(1) > 0;
                 }
             }
-    
+
             // 3. Si es tecnológico, actualizar marca y serie
             if (esTecnologico && elemento instanceof ElementoTecnologico) {
                 ElementoTecnologico tecnologico = (ElementoTecnologico) elemento;
-    
+
                 try (PreparedStatement stmtTec = conn.prepareStatement(sqlUpdateTecnologico)) {
                     stmtTec.setString(1, tecnologico.getMarca());
                     stmtTec.setString(2, tecnologico.getSerie());
@@ -381,25 +382,27 @@ public class ElementoDao {
                     stmtTec.executeUpdate();
                 }
             }
-    
+
             return true;
-    
+
         } catch (SQLException e) {
             System.out.println("Error al actualizar el elemento: " + e.getMessage());
             return false;
         }
     }
+
     // ELIMINAR ELEMENTO
+
     public boolean eliminarElemento(int idElemento, int idUsuario, String motivoEliminacion) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         boolean eliminado = false;
-    
+
         try {
             conn = Conexion.getConexion();
             conn.setAutoCommit(false); // Iniciar transacción
-    
+
             // Verificar si el elemento existe
             String verificar = "SELECT id_elemento FROM elementos WHERE id_elemento = ?";
             ps = conn.prepareStatement(verificar);
@@ -410,7 +413,7 @@ public class ElementoDao {
             }
             rs.close();
             ps.close();
-    
+
             // Verificar si es tecnológico
             boolean esTecnologico = false;
             String verificarTecnologico = "SELECT id_tecnologico FROM elementos_tecnologicos WHERE elemento_id = ?";
@@ -422,7 +425,7 @@ public class ElementoDao {
             }
             rs.close();
             ps.close();
-    
+
             // Registrar eliminación
             String registrarEliminacion = "INSERT INTO elementos_eliminados (elemento_id, motivo_eliminacion, usuario_elimino) VALUES (?, ?, ?)";
             ps = conn.prepareStatement(registrarEliminacion);
@@ -431,7 +434,7 @@ public class ElementoDao {
             ps.setInt(3, idUsuario);
             ps.executeUpdate();
             ps.close();
-    
+
             // Eliminar del tipo específico
             if (esTecnologico) {
                 String eliminarTec = "DELETE FROM elementos_tecnologicos WHERE elemento_id = ?";
@@ -446,55 +449,60 @@ public class ElementoDao {
                 ps.executeUpdate();
                 ps.close();
             }
-    
+
             // Eliminar del registro principal
             String eliminarElemento = "DELETE FROM elementos WHERE id_elemento = ?";
             ps = conn.prepareStatement(eliminarElemento);
             ps.setInt(1, idElemento);
             ps.executeUpdate();
             ps.close();
-    
+
             conn.commit();
             eliminado = true;
-    
+
         } catch (SQLException e) {
             try {
-                if (conn != null) conn.rollback();
+                if (conn != null)
+                    conn.rollback();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
             e.printStackTrace();
         } finally {
             try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.setAutoCommit(true);
-                if (conn != null) conn.close();
+                if (ps != null)
+                    ps.close();
+                if (conn != null)
+                    conn.setAutoCommit(true);
+                if (conn != null)
+                    conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-    
+
         return eliminado;
     }
+
     // MOVER ELEMENTO Y REGISTRAR MOVIMIENTO
     public boolean moverElemento(int idElemento, String tipoElemento, int aulaOrigen, int aulaDestino, int idUsuario) {
         Connection conn = null;
         PreparedStatement actualizarElemento = null;
         PreparedStatement registrarHistorial = null;
-    
+
         String actualizarElementoSQL = "UPDATE elementos SET aula = ? WHERE id_elemento = ?";
         String registrarHistorialSQL = "INSERT INTO historial_movimientos (tipo_elemento, aula_origen, aula_destino, usuario_movio) VALUES (?, ?, ?, ?)";
-    
+
         try {
             conn = Conexion.getConexion();
             conn.setAutoCommit(false); // Empezamos transacción
-    
+
             // 1. Actualizar el aula del elemento
             actualizarElemento = conn.prepareStatement(actualizarElementoSQL);
             actualizarElemento.setInt(1, aulaDestino);
             actualizarElemento.setInt(2, idElemento);
             actualizarElemento.executeUpdate();
-    
+
             // 2. Registrar movimiento en el historial
             registrarHistorial = conn.prepareStatement(registrarHistorialSQL);
             registrarHistorial.setString(1, tipoElemento); // "mobiliario" o "tecnologico"
@@ -502,10 +510,10 @@ public class ElementoDao {
             registrarHistorial.setInt(3, aulaDestino);
             registrarHistorial.setInt(4, idUsuario);
             registrarHistorial.executeUpdate();
-    
+
             conn.commit(); // Confirmar transacción
             return true;
-    
+
         } catch (SQLException e) {
             if (conn != null) {
                 try {
@@ -518,10 +526,14 @@ public class ElementoDao {
             return false;
         } finally {
             try {
-                if (actualizarElemento != null) actualizarElemento.close();
-                if (registrarHistorial != null) registrarHistorial.close();
-                if (conn != null) conn.setAutoCommit(true); // Restaurar estado
-                if (conn != null) conn.close();
+                if (actualizarElemento != null)
+                    actualizarElemento.close();
+                if (registrarHistorial != null)
+                    registrarHistorial.close();
+                if (conn != null)
+                    conn.setAutoCommit(true); // Restaurar estado
+                if (conn != null)
+                    conn.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -530,9 +542,87 @@ public class ElementoDao {
 
     // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES ADMINISTRADOR
     
+    public boolean actualizarIdentificador(int idElemento, String nuevoIdentificador, String nuevoTipo, int idUsuario) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+    
+        try {
+            conn = Conexion.getConexion();
+    
+            // 1. Validar si el usuario tiene rol de administrador
+            String sqlRol = "SELECT r.nombre FROM usuarios u JOIN rol r ON u.rol = r.id_rol WHERE u.id_usuario = ?";
+            stmt = conn.prepareStatement(sqlRol);
+            stmt.setInt(1, idUsuario);
+            rs = stmt.executeQuery();
+            if (!rs.next() || !rs.getString("nombre").equalsIgnoreCase("administrador")) {
+                System.out.println("El usuario no tiene permisos para cambiar el identificador.");
+                return false;
+            }
+            rs.close();
+            stmt.close();
+    
+            // 2. Obtener identificador y tipo actuales del elemento
+            String sqlSelect = "SELECT identificador_unico, tipo_identificador FROM elementos WHERE id_elemento = ?";
+            stmt = conn.prepareStatement(sqlSelect);
+            stmt.setInt(1, idElemento);
+            rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("Elemento no encontrado.");
+                return false;
+            }
+    
+            String identificadorActual = rs.getString("identificador_unico");
+            String tipoActual = rs.getString("tipo_identificador");
+            rs.close();
+            stmt.close();
+    
+            // 3. Actualizar identificador y tipo
+            String sqlUpdate = "UPDATE elementos SET identificador_unico = ?, tipo_identificador = ? WHERE id_elemento = ?";
+            stmt = conn.prepareStatement(sqlUpdate);
+            stmt.setString(1, nuevoIdentificador);
+            stmt.setString(2, nuevoTipo);
+            stmt.setInt(3, idElemento);
+            int filas = stmt.executeUpdate();
+            stmt.close();
+    
+            if (filas == 0) {
+                System.out.println("No se pudo actualizar el identificador.");
+                return false;
+            }
+    
+            // 4. Registrar auditoría
+            String sqlAuditoria = "INSERT INTO cambios_identificador (id_elemento, identificador_anterior, tipo_identificador_anterior, identificador_nuevo, tipo_identificador_nuevo, usuario_modifica) VALUES (?, ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sqlAuditoria);
+            stmt.setInt(1, idElemento);
+            stmt.setString(2, identificadorActual);
+            stmt.setString(3, tipoActual);
+            stmt.setString(4, nuevoIdentificador);
+            stmt.setString(5, nuevoTipo);
+            stmt.setInt(6, idUsuario);
+            stmt.executeUpdate();
+    
+            System.out.println("Cambio de identificador registrado con éxito.");
+            return true;
+    
+        } catch (SQLException e) {
+            System.out.println("Error en el cambio de identificador:");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
     
 
-    
+
+
 
 
 

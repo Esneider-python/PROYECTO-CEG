@@ -53,6 +53,29 @@ $(document).ready(function () {
         $('#add-e').css('display', 'none');
     });
 
+    //mostrar mensaje actualizar elemento
+    $('#btnActualizar').hover(function (event) {
+        $('#update-e').css({
+            display: 'block',
+            top: event.pageY + 10 + 'px',
+            left: event.pageX + 10 + 'px'
+        });
+    }, function () {
+        $('#update-e').css('display', 'none');
+    });
+
+    //mostrar informacion boton hacer reporte
+    $('#btnReportar').hover(function (event) {
+        $('#report-e').css({
+            display: 'block',
+            top: event.pageY + 10 + 'px',
+            left: event.pageX + 10 + 'px'
+        });
+    }, function () {
+        $('#report-e').css('display', 'none');
+    });
+
+
     // ------------------------------------------------------------------
     // CONFIGURACION BOTON ELIMINAR ELEMENTO
 
@@ -79,7 +102,7 @@ $(document).ready(function () {
     const botonCancelar = document.querySelector("#rechazarBtn");
 
     function Cancelar() {
-        card.classList.add("hidden")
+    card.classList.add("hidden")
         cardOverlay.classList.remove("overlay");
     };
 
@@ -87,29 +110,28 @@ $(document).ready(function () {
     botonConfirmar.addEventListener("click", EliminarFilaElemento)
     botonCancelar.addEventListener("click", Cancelar)
 
-    // CONFIGURACION BOTON CAMBIAR ESTADO
 
-    const botonEstado = document.querySelector("#modifyButton");
-    const cardEstado = document.querySelector(".superpuesto-estado");
-    const btnEstado = document.querySelector("#rechazarBtn-estado");
-    const botonMoverElemn = document.querySelector("#moverButton");
-    const formularioMoverElemento = document.querySelector(".superpuesto-mover-elemento");
-    const cancelarMoverE = document.querySelector("#btn-cancelar-mover");
+    
     const formAggIdentificador = document.querySelector(".superpuesto-agg-id");
     const btnAggId = document.querySelector("#agregarRegistroButton");
     const btnCancelarAgg = document.querySelector("#btn-cancelar-agregar");
-
+    
     const cardOverlay1 = document.querySelector("#card-overlay1");
-
+    
     function MostrarCardestado() {
         cardOverlay1.classList.add("overlay")
         cardEstado.classList.remove("hidden")
     };
-
     function OcultarCardEstado() {
         cardOverlay1.classList.remove("overlay");
         cardEstado.classList.add("hidden");
     };
+    
+    
+    const cancelarMoverE = document.querySelector("#btn-cancelar-mover");
+    const formularioMoverElemento = document.querySelector(".superpuesto-mover-elemento");
+    const botonMoverElemn = document.querySelector("#moverButton");
+        
 
     // CONFIGURACION BOTON MOVER ELEMENTO
 
