@@ -67,6 +67,7 @@ CREATE TABLE elementos (
     usuario_registra INT NOT NULL,
     aula_id INT NOT NULL,
     identificador_unico VARCHAR(100) UNIQUE NULL,
+    tipo_identificador VARCHAR(300) NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_registra) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (aula_id) REFERENCES aulas(id_aula)
@@ -130,4 +131,16 @@ CREATE TABLE elementos_eliminados (
     usuario_elimino INT NOT NULL,
     FOREIGN KEY (elemento_id) REFERENCES elementos(id_elemento),
     FOREIGN KEY (usuario_elimino) REFERENCES usuarios(id_usuario)
+);
+CREATE TABLE cambios_identificador (
+    id_cambio INT AUTO_INCREMENT PRIMARY KEY,
+    id_elemento INT NOT NULL,
+    identificador_anterior VARCHAR(100),
+    tipo_identificador_anterior VARCHAR(300),
+    identificador_nuevo VARCHAR(100),
+    tipo_identificador_nuevo VARCHAR(300),
+    usuario_modifica INT NOT NULL,
+    fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_elemento) REFERENCES elementos(id_elemento),
+    FOREIGN KEY (usuario_modifica) REFERENCES usuarios(id_usuario)
 );

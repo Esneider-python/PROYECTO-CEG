@@ -31,6 +31,7 @@ public class ElementoDao {
             stmt.setInt(3, elemento.getUsuarioRegistra());
             stmt.setInt(4, elemento.getAulaId());
             stmt.setString(5, elemento.getIdentificadorUnico());
+            stmt.setString(6, elemento.getTipoIdentificador());
 
             stmt.executeUpdate();
 
@@ -83,7 +84,7 @@ public class ElementoDao {
     // -------------------CONSULTAS PARA ELEMENTOS-----------------------
 
     // consultar elemento por id
-    // #1. Consultar elemento por ID
+    // #1. CONSULTAR ELEMENTO POR ID
     public Elemento obtenerPorId(int idElemento) {
         Elemento elemento = null;
         String sql = "SELECT * FROM elementos WHERE id_elemento = ?";
@@ -103,6 +104,7 @@ public class ElementoDao {
                     t.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     t.setAulaId(rs.getInt("aula_id"));
                     t.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    t.setTipoIdentificador(rs.getString("tipo_identificador"));
                     t.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
 
                     // Obtener marca y serie
@@ -126,6 +128,7 @@ public class ElementoDao {
                     m.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     m.setAulaId(rs.getInt("aula_id"));
                     m.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    m.setTipoIdentificador(rs.getString("tipo_identificacior"));
                     m.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
 
                     elemento = m;
@@ -139,6 +142,7 @@ public class ElementoDao {
                     e.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     e.setAulaId(rs.getInt("aula_id"));
                     e.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    e.setTipoIdentificador(rs.getString("tipo_identificacior"));
                     e.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
 
                     elemento = e;
@@ -231,6 +235,7 @@ public class ElementoDao {
                     t.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     t.setAulaId(rs.getInt("aula_id"));
                     t.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    t.setTipoIdentificador(rs.getString("tipo_identificador"));
                     t.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
 
                     // Obtener marca y serie
@@ -254,6 +259,7 @@ public class ElementoDao {
                     m.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     m.setAulaId(rs.getInt("aula_id"));
                     m.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    m.setTipoIdentificador(rs.getString("tipo_identificador"));
                     m.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
 
                     lista.add(m);
@@ -266,6 +272,7 @@ public class ElementoDao {
                     e.setUsuarioRegistra(rs.getInt("usuario_registra"));
                     e.setAulaId(rs.getInt("aula_id"));
                     e.setIdentificadorUnico(rs.getString("identificador_unico"));
+                    e.setTipoIdentificador(rs.getString("tipo_identificador"));
                     e.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                     lista.add(e);
                 }
@@ -469,6 +476,60 @@ public class ElementoDao {
     
         return eliminado;
     }
+    // MOVER ELEMENTO Y REGISTRAR MOVIMIENTO
+    public boolean moverElemento(int idElemento, String tipoElemento, int aulaOrigen, int aulaDestino, int idUsuario) {
+        Connection conn = null;
+        PreparedStatement actualizarElemento = null;
+        PreparedStatement registrarHistorial = null;
+    
+        String actualizarElementoSQL = "UPDATE elementos SET aula = ? WHERE id_elemento = ?";
+        String registrarHistorialSQL = "INSERT INTO historial_movimientos (tipo_elemento, aula_origen, aula_destino, usuario_movio) VALUES (?, ?, ?, ?)";
+    
+        try {
+            conn = Conexion.getConexion();
+            conn.setAutoCommit(false); // Empezamos transacción
+    
+            // 1. Actualizar el aula del elemento
+            actualizarElemento = conn.prepareStatement(actualizarElementoSQL);
+            actualizarElemento.setInt(1, aulaDestino);
+            actualizarElemento.setInt(2, idElemento);
+            actualizarElemento.executeUpdate();
+    
+            // 2. Registrar movimiento en el historial
+            registrarHistorial = conn.prepareStatement(registrarHistorialSQL);
+            registrarHistorial.setString(1, tipoElemento); // "mobiliario" o "tecnologico"
+            registrarHistorial.setInt(2, aulaOrigen);
+            registrarHistorial.setInt(3, aulaDestino);
+            registrarHistorial.setInt(4, idUsuario);
+            registrarHistorial.executeUpdate();
+    
+            conn.commit(); // Confirmar transacción
+            return true;
+    
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // Revertir si hay error
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (actualizarElemento != null) actualizarElemento.close();
+                if (registrarHistorial != null) registrarHistorial.close();
+                if (conn != null) conn.setAutoCommit(true); // Restaurar estado
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES ADMINISTRADOR
+    
     
 
     

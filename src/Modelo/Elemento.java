@@ -1,7 +1,6 @@
 package Modelo;
 import java.sql.Timestamp;
 
-
 public class Elemento {
     private int idElemento;
     private String nombre;
@@ -9,18 +8,20 @@ public class Elemento {
     private int usuarioRegistra;
     private int aulaId;
     private String identificadorUnico;
+    private String tipoIdentificador;
     private Timestamp fechaCreacion;
 
     public Elemento() {}
 
     public Elemento(int idElemento, String nombre, String estado, int usuarioRegistra,
-                    int aulaId, String identificadorUnico, Timestamp fechaCreacion) {
+                    int aulaId, String identificadorUnico, String tipoIdentificador, Timestamp fechaCreacion) {
         this.idElemento = idElemento;
         this.nombre = nombre;
         this.estado = estado;
         this.usuarioRegistra = usuarioRegistra;
         this.aulaId = aulaId;
         this.identificadorUnico = identificadorUnico;
+        this.tipoIdentificador = tipoIdentificador;
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -71,6 +72,14 @@ public class Elemento {
 
     public void setIdentificadorUnico(String identificadorUnico) {
         this.identificadorUnico = identificadorUnico;
+    }
+
+    public String getTipoIdentificador() {
+        return tipoIdentificador;
+    }
+
+    public void setTipoIdentificador(String tipoIdentificador) {
+        this.tipoIdentificador = tipoIdentificador;
     }
 
     public Timestamp getFechaCreacion() {
