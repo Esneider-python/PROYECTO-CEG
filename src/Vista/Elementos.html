@@ -109,12 +109,17 @@
                                 <div class="card-content white-text">
                                     <span class="card-title">Eliminar definitivamente?</span>
                                 </div>
+                                <div class="input">
+                                    <input id="id_motivo" type="text" class="validate" placeholder="Descripcion">
+                                </div>
+                                <div class="input">
+                                    <input id="id_usuario_e" type="number" class="validate" placeholder="Usuario accion">
+                                </div>
                                 <div class="card-action center">
                                     <button id="confirmarBtn"
                                         class="waves-effect waves-light btn green">Confirmar</button>
                                     <button id="rechazarBtn" class="waves-effect waves-light btn red">Cancelar</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -129,10 +134,11 @@
                                     <span class="card-title">Selecciona aula destino</span>
                                 </div>
                                 <form id="formMoverElemento">
-                                    <div class="input-field">
-                                        <select id="nuevaAula" name="nuevaAula" required>
-                                            <option value="" disabled selected>Aulas</option>
-                                        </select>
+                                    <div class="input">
+                                        <input id="id_Aula" type="number" class="validate" placeholder="Aula destino">
+                                    </div>
+                                    <div class="input">
+                                        <input id="id_usu" type="number" class="validate" placeholder="Usuario accion">
                                     </div>
                                     <button class="btn green" type="submit">Mover Elemento</button>
                                     <button id="btn-cancelar-mover" class="btn red" type="submit">Cancelar</button>
@@ -156,7 +162,7 @@
                                         <i id="icon-identi" class="material-icons">qr_code</i>
                                     </a>
                                 </div>
-                                <button class="btn green" type="submit">Agregar</button>
+                                <button id="btn-agregar-id" class="btn green" type="submit">Agregar</button>
                                 <button id="btn-cancelar-agregar" class="btn red" type="submit">Cancelar</button>
                             </div>
                         </div>

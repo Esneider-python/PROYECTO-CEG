@@ -112,10 +112,9 @@ $(document).ready(function () {
 
 
     
-    const formAggIdentificador = document.querySelector(".superpuesto-agg-id");
-    const btnAggId = document.querySelector("#agregarRegistroButton");
-    const btnCancelarAgg = document.querySelector("#btn-cancelar-agregar");
     
+    
+
     const cardOverlay1 = document.querySelector("#card-overlay1");
     
     function MostrarCardestado() {
@@ -130,42 +129,52 @@ $(document).ready(function () {
     
     const cancelarMoverE = document.querySelector("#btn-cancelar-mover");
     const formularioMoverElemento = document.querySelector(".superpuesto-mover-elemento");
-    const botonMoverElemn = document.querySelector("#moverButton");
-        
-
+    
+    
+    
     // CONFIGURACION BOTON MOVER ELEMENTO
-
+    
+    const botonMoverElemn = document.querySelector("#moverButton");
     const cardOverlay2 = document.querySelector("#card-overlay2");
+    
     function MostarFormMoverElemento() {
         cardOverlay2.classList.add("overlay")
         formularioMoverElemento.classList.remove("hidden");
         let elems = document.querySelectorAll("select");
         M.FormSelect.init(elems);
     };
-
+    
     function OcultarFormularioMover() {
         formularioMoverElemento.classList.add("hidden")
         cardOverlay2.classList.remove("overlay")
     };
+    
+    botonMoverElemn.addEventListener("click",MostarFormMoverElemento);
+    botonMoverElemn.addEventListener("click", MostarFormMoverElemento);
+    cancelarMoverE.addEventListener("click", OcultarFormularioMover);
 
     // CONFIGURACION BOTON AGREGAR IDENTIFICADOR
-    const cardOverlay3 = document.querySelector("#card-overlay3");
+    const btnCancelarAgg = document.querySelector("#btn-cancelar-agregar");
+    const btnAggId = document.querySelector("#agregarRegistroButton");
 
+    const formAggIdentificador = document.querySelector(".superpuesto-agg-id");
+    const cardOverlay3 = document.querySelector("#card-overlay3");
+    
     function AgregarIdentificador() {
         cardOverlay3.classList.add("overlay")
         formAggIdentificador.classList.remove("hidden");
     };
-
+    
     function OcultarFormId() {
         formAggIdentificador.classList.add("hidden");
         cardOverlay3.classList.remove("overlay")
     };
-
-    botonEstado.addEventListener('click', MostrarCardestado);
-    btnEstado.addEventListener("click", OcultarCardEstado);
-    botonMoverElemn.addEventListener("click", MostarFormMoverElemento);
-    cancelarMoverE.addEventListener("click", OcultarFormularioMover);
     btnAggId.addEventListener("click", AgregarIdentificador);
     btnCancelarAgg.addEventListener("click", OcultarFormId);
+    
+    
+    botonEstado.addEventListener('click', MostrarCardestado);
+    btnEstado.addEventListener("click", OcultarCardEstado);
+    
 });
 

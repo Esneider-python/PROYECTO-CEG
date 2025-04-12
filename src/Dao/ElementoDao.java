@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// LISTA DE METODOS
 
 // Inserción de elementos generales, tecnológicos y mobiliarios.
 // Consulta por tipo (tecnologico / mobiliario).
@@ -18,7 +17,10 @@ import java.util.List;
 // Diseño limpio respetando herencia y tu estructura de base de datos.
 
 public class ElementoDao {
+
+
     // INSERTAR NUEVO ELEMENTO
+
     public void insertarElemento(Elemento elemento) {
         String sql = "INSERT INTO elementos(nombre, estado, usuario_registra, aula_id, identificador_unico) " +
                 "VALUES (?, ?, ?, ?, ?)";
@@ -83,7 +85,8 @@ public class ElementoDao {
 
     // -------------------CONSULTAS PARA ELEMENTOS-----------------------
 
-    // consultar elemento por id
+
+
     // #1. CONSULTAR ELEMENTO POR ID
     public Elemento obtenerPorId(int idElemento) {
         Elemento elemento = null;
@@ -156,7 +159,7 @@ public class ElementoDao {
         return elemento;
     }
 
-    // consultar elemento por tipo de elemento
+    // CONSULTAR ELEMENTO POR TIPO
     public List<Elemento> obtenerPorTipo(String tipo) {
         List<Elemento> lista = new ArrayList<>();
         String sql;
@@ -211,7 +214,7 @@ public class ElementoDao {
         return lista;
     }
 
-    // ...#3 consultar elementos por usuarios
+    // ...#3 CONSULTAR ELEMENTOS POR USUARIO
     public List<Elemento> obtenerPorUsuario(int idUsuario) {
         List<Elemento> lista = new ArrayList<>();
 
@@ -342,7 +345,7 @@ public class ElementoDao {
         }
     }
 
-    // ACTALIZAR UN ELEMENTO
+    // ACTUALIZAR UN ELEMENTO
 
     public boolean actualizarElemento(Elemento elemento) {
         String sqlUpdateElemento = "UPDATE elementos SET nombre = ?, estado = ?, aula_id = ?, identificador_unico = ? WHERE id_elemento = ?";
@@ -391,7 +394,7 @@ public class ElementoDao {
         }
     }
 
-    // ELIMINAR ELEMENTO
+    // ELIMINAR ELEMENTO Y REGISTRAR LA INFORMACION EN LA TABLA ELEMENTOS_ELIMINADOS
 
     public boolean eliminarElemento(int idElemento, int idUsuario, String motivoEliminacion) {
         Connection conn = null;
@@ -484,7 +487,8 @@ public class ElementoDao {
         return eliminado;
     }
 
-    // MOVER ELEMENTO Y REGISTRAR MOVIMIENTO
+    // MOVER ELEMENTO Y REGISTRAR MOVIMIENTO EN LA TABLA HISTORIAL_MOVIMIENTOS
+
     public boolean moverElemento(int idElemento, String tipoElemento, int aulaOrigen, int aulaDestino, int idUsuario) {
         Connection conn = null;
         PreparedStatement actualizarElemento = null;
@@ -540,7 +544,7 @@ public class ElementoDao {
         }
     }
 
-    // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES ADMINISTRADOR
+    // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES "ADMINISTRADOR"
     
     public boolean actualizarIdentificador(int idElemento, String nuevoIdentificador, String nuevoTipo, int idUsuario) {
         Connection conn = null;
