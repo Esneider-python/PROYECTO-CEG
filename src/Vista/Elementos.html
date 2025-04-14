@@ -77,26 +77,26 @@
                 <div class="row color-filas center">
                     <div class="col s12 m12 l12 ">
                         <div class="col s1 m1 l1  center">
-                            <a><i id="deleteButton" class="material-icons center">delete</i></a>
+                            <a><i id="DropElement" class="material-icons center">delete</i></a>
                         </div>
-                        <div class="tooltip" id="delete-e">Eliminar elemento</div>
+                        <div class="tooltip" id="move-e">Eliminar</div>
                         <div class="col s1 m1 l1  center">
-                            <a><i id="moverButton" class="material-icons center">home</i></a>
+                            <a><i id="MoveElement" class="material-icons center">home</i></a>
                         </div>
-                        <div class="tooltip" id="move-e">Mover elemento</div>
+                        <div class="tooltip" id="agg-id">Mover elemento</div>
                         <div class="col s1 m1 l1  center">
-                            <a><i id="agregarRegistroButton" class="material-icons center">add</i></a>
+                            <a><i id="AggId" class="material-icons center">add</i></a>
                         </div>
-                        <div class="tooltip" id="add-e">Agregar Identificador</div>
+                        <div class="tooltip" id="update-e">Agregar id</div>
                         <div class="col s1 m1 l1  center">
-                            <a><i id="btnActualizar" class="material-icons center">edit</i></a>
+                            <a><i id="updateElement" class="material-icons center">edit</i></a>
                         </div>
                         <div class="tooltip" id="update-e">Actualizar elemento</div>
+                        <div class="tooltip" id="report-e">Reportar</div>
                         <div class="col s1 m1 l1  center">
                             <a><i id="btnReportar" class="material-icons center">report</i></a>
                         </div>
                         <div class="tooltip" id="report-e">Reportar elemento</div>
-
                     </div>
                 </div>
             </div>
@@ -113,7 +113,8 @@
                                     <input id="id_motivo" type="text" class="validate" placeholder="Descripcion">
                                 </div>
                                 <div class="input">
-                                    <input id="id_usuario_e" type="number" class="validate" placeholder="Usuario accion">
+                                    <input id="id_usuario_e" type="number" class="validate"
+                                        placeholder="Usuario accion">
                                 </div>
                                 <div class="card-action center">
                                     <button id="confirmarBtn"
@@ -141,7 +142,7 @@
                                         <input id="id_usu" type="number" class="validate" placeholder="Usuario accion">
                                     </div>
                                     <button class="btn green" type="submit">Mover Elemento</button>
-                                    <button id="btn-cancelar-mover" class="btn red" type="submit">Cancelar</button>
+                                    <button id="btn-cancelar-mover" class="btn red" type="button">Cancelar</button>
                                 </form>
                             </div>
                         </div>
@@ -158,18 +159,56 @@
                                 </div>
                                 <div class="input-field col s12 m12 l12">
                                     <input id="identificador" type="text" class="validate">
-                                    <a href="#" class="btn-flat waves-effect waves-light right">
+                                    <a class="btn-flat waves-effect waves-light right">
                                         <i id="icon-identi" class="material-icons">qr_code</i>
                                     </a>
                                 </div>
-                                <button id="btn-agregar-id" class="btn green" type="submit">Agregar</button>
-                                <button id="btn-cancelar-agregar" class="btn red" type="submit">Cancelar</button>
+                                <button id="btn-agregar-id" class="btn green" type="button">Agregar</button>
+                                <button id="btnCancelId" class="btn red" type="button">Cancelar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="card-overlay1">
+            <div id="card-overlay4">
+                <div class="superpuesto-actualizar hidden">
+                    <div class="row">
+                        <div class="col s8 m12 l12">
+                            <div class="card-actualizar blue-grey darken-4">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Actualizar elemento</span>
+                                </div>
+                                <form id="formActualizarElemento">
+                                    <label for="">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" required />
+                                    <label for="">Usuario accion</label>
+                                    <input type="number" id="user_id" name="user_id" required />
+                                    <div class="input-field">
+                                        <select id="tipoElemento" name="tipoElemento" required>
+                                            <option value="" disabled selected>Tipo elemento</option>
+                                            <option value="tecnologico">Tecnologico</option>
+                                            <option value="mobiliario">Mobiliario</option>
+                                        </select>
+                                    </div>
+                                    <div id="camposTecnologicos" class="hidden">
+                                        <label for="marca">Marca:</label>
+                                        <input type="text" id="marca" name="marca" />
+
+                                        <label for="serie">Serie:</label>
+                                        <input type="text" id="serie" name="serie" />
+                                    </div>
+                                </form>
+                                <div class="card-action center">
+                                    <button id="update" class="waves-effect waves-light btn green">Actualizar</button>
+                                    <button id="cancelUpdate" class="waves-effect waves-light btn red">
+                                        Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="card-overlay5">
                 <div class="superpuesto-reporte hidden">
                     <div class="row">
                         <div class="col s8 m12 l12">
@@ -178,15 +217,16 @@
                                     <span class="card-title">Reportando elemento</span>
                                 </div>
                                 <div class="input">
-                                    <input id="id_estado" type="text" class="validate" placeholder="Descripcion reporte">
+                                    <input id="id_estado" type="text" class="validate"
+                                        placeholder="Descripcion reporte">
                                 </div>
                                 <div class="input">
                                     <input id="id_estado" type="number" class="validate" placeholder="Usuario accion">
                                 </div>
                                 <div class="card-action center">
-                                    <button id="confirmarBtn"
+                                    <button id="confirmarBtnReportar"
                                         class="waves-effect waves-light btn green">Reportar</button>
-                                    <button id="rechazarBtn-estado" class="waves-effect waves-light btn red">
+                                    <button id="rechazarBtnReportar" class="waves-effect waves-light btn red">
                                         Cancelar</button>
                                 </div>
                             </div>
@@ -199,7 +239,9 @@
             <button id="boton-salir" class="waves-effect waves-light btn black">Salir</button>
         </div>
 
+
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/init-nav.js"></script>

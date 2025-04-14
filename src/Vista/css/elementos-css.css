@@ -147,6 +147,21 @@ i {
     max-width: 90%;
 }
 
+/* SUPERPUESTO ACTUALIZAR */
+
+.superpuesto-actualizar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+}
+.card-actualizar {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 1, 1, 0.2);
+}
 /*estilo icono de agregar identificacion */
 #icon-identi {
     color: white;

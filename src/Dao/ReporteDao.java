@@ -16,9 +16,9 @@ public class ReporteDao {
 
         try {
             conexion = Conexion.getConexion();
-            conexion.setAutoCommit(false); // Para asegurar transacción
+            conexion.setAutoCommit(false); // Iniciar transacción
 
-            // 1. Insertar el reporte
+            // Insertar reporte
             String sqlReporte = "INSERT INTO reporte (descripcion, elemento_reportado, usuario_reporta) VALUES (?, ?, ?)";
             insertarReporte = conexion.prepareStatement(sqlReporte);
             insertarReporte.setString(1, reporte.getDescripcion());
@@ -26,21 +26,21 @@ public class ReporteDao {
             insertarReporte.setInt(3, reporte.getUsuarioReporta());
             insertarReporte.executeUpdate();
 
-            // 2. Actualizar estado del elemento
-            String sqlUpdate = "UPDATE elementos SET estado = ? WHERE id = ?";
+            // Actualizar estado del elemento
+            String sqlUpdate = "UPDATE elementos SET estado = ? WHERE id_elemento = ?";
             actualizarEstado = conexion.prepareStatement(sqlUpdate);
             actualizarEstado.setString(1, nuevoEstadoElemento);
             actualizarEstado.setInt(2, reporte.getElementoReportado());
             actualizarEstado.executeUpdate();
 
-            conexion.commit(); // Todo correcto, confirmamos cambios
+            conexion.commit(); // Confirmar transacción
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al reportar el elemento: " + e.getMessage());
             try {
                 if (conexion != null) {
-                    conexion.rollback(); // Deshacer cambios si algo falla
+                    conexion.rollback(); // Revertir cambios
                 }
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
@@ -49,9 +49,12 @@ public class ReporteDao {
 
         } finally {
             try {
-                if (insertarReporte != null) insertarReporte.close();
-                if (actualizarEstado != null) actualizarEstado.close();
-                if (conexion != null) conexion.close();
+                if (insertarReporte != null)
+                    insertarReporte.close();
+                if (actualizarEstado != null)
+                    actualizarEstado.close();
+                if (conexion != null)
+                    conexion.close();
             } catch (SQLException cierreEx) {
                 cierreEx.printStackTrace();
             }

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#id-ver-info').click(function () {
         $("#div-info").toggleClass("hidden")
         $("#linea-opcion").addClass("hidden");
@@ -80,7 +81,7 @@ $(document).ready(function () {
     // CONFIGURACION BOTON ELIMINAR ELEMENTO
 
     // Mostrar tarjeta de conformacion eliminacion
-    const BotonDelete = document.getElementById("deleteButton");
+    const BotonDelete = document.getElementById("DropElement");
     const card = document.querySelector(".superpuesto")
     const cardOverlay = document.getElementById("card-overlay");
 
@@ -102,7 +103,7 @@ $(document).ready(function () {
     const botonCancelar = document.querySelector("#rechazarBtn");
 
     function Cancelar() {
-    card.classList.add("hidden")
+        card.classList.add("hidden")
         cardOverlay.classList.remove("overlay");
     };
 
@@ -111,12 +112,12 @@ $(document).ready(function () {
     botonCancelar.addEventListener("click", Cancelar)
 
 
-    
-    
-    
+
+
+
 
     const cardOverlay1 = document.querySelector("#card-overlay1");
-    
+
     function MostrarCardestado() {
         cardOverlay1.classList.add("overlay")
         cardEstado.classList.remove("hidden")
@@ -125,56 +126,100 @@ $(document).ready(function () {
         cardOverlay1.classList.remove("overlay");
         cardEstado.classList.add("hidden");
     };
-    
-    
+
+
     const cancelarMoverE = document.querySelector("#btn-cancelar-mover");
     const formularioMoverElemento = document.querySelector(".superpuesto-mover-elemento");
-    
-    
-    
+
+
+
     // CONFIGURACION BOTON MOVER ELEMENTO
-    
-    const botonMoverElemn = document.querySelector("#moverButton");
+
+    const botonMoverElemn = document.querySelector("#MoveElement");
     const cardOverlay2 = document.querySelector("#card-overlay2");
-    
+
     function MostarFormMoverElemento() {
         cardOverlay2.classList.add("overlay")
         formularioMoverElemento.classList.remove("hidden");
         let elems = document.querySelectorAll("select");
         M.FormSelect.init(elems);
     };
-    
+
     function OcultarFormularioMover() {
         formularioMoverElemento.classList.add("hidden")
         cardOverlay2.classList.remove("overlay")
     };
-    
-    botonMoverElemn.addEventListener("click",MostarFormMoverElemento);
+
+    botonMoverElemn.addEventListener("click", MostarFormMoverElemento);
     botonMoverElemn.addEventListener("click", MostarFormMoverElemento);
     cancelarMoverE.addEventListener("click", OcultarFormularioMover);
 
     // CONFIGURACION BOTON AGREGAR IDENTIFICADOR
-    const btnCancelarAgg = document.querySelector("#btn-cancelar-agregar");
-    const btnAggId = document.querySelector("#agregarRegistroButton");
+    const btnCancelarAgg = document.querySelector("#btnCancelId");
+    const btnAggId = document.querySelector("#AggId");
 
     const formAggIdentificador = document.querySelector(".superpuesto-agg-id");
     const cardOverlay3 = document.querySelector("#card-overlay3");
-    
+
     function AgregarIdentificador() {
         cardOverlay3.classList.add("overlay")
         formAggIdentificador.classList.remove("hidden");
     };
-    
-    function OcultarFormId() {
-        formAggIdentificador.classList.add("hidden");
-        cardOverlay3.classList.remove("overlay")
-    };
-    btnAggId.addEventListener("click", AgregarIdentificador);
-    btnCancelarAgg.addEventListener("click", OcultarFormId);
-    
-    
-    botonEstado.addEventListener('click', MostrarCardestado);
-    btnEstado.addEventListener("click", OcultarCardEstado);
-    
-});
 
+    function OcultarFormID() {
+        formAggIdentificador.classList.add("hidden");
+        cardOverlay3.classList.remove("overlay");
+    };
+
+    btnAggId.addEventListener("click", AgregarIdentificador);
+    btnCancelarAgg.addEventListener("click", OcultarFormID);
+
+
+
+    // CONFIGURACION ACTUALIZAR ELEMENTO
+    const CancelUpdate = document.querySelector("#cancelUpdate");
+    const formActualizar = document.querySelector(".superpuesto-actualizar");
+    const cardOverlay4 = document.querySelector("#card-overlay4");
+    const btnUpdate = document.querySelector("#updateElement")
+    function Actualizar() {
+        cardOverlay4.classList.add("overlay")
+        formActualizar.classList.remove("hidden");
+    };
+    function OcultarFormUpdate() {
+        formActualizar.classList.add("hidden");
+        cardOverlay4.classList.remove("overlay")
+    };
+    btnUpdate.addEventListener("click", Actualizar);
+    CancelUpdate.addEventListener("click", OcultarFormUpdate);
+    console.log(btnCancelarAgg); // ¿null?
+    console.log(btnAggId);
+    console.log(formAggIdentificador);
+    console.log(cardOverlay3);
+
+    // CONFIGURACION SELECT
+    let elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems);
+
+    // CONFIGURACION SI ES MOBILIARIO O TECNOLOGICO
+
+    const tipoElemento = document.getElementById("tipoElemento");
+    const camposTecnologicos = document.getElementById("camposTecnologicos");
+    tipoElemento.addEventListener("change", function () {
+        const tipo = this.value;
+
+        if (tipo === "tecnologico") {
+            camposTecnologicos.classList.remove("hidden");
+        } else {
+            camposTecnologicos.classList.add("hidden");
+        }
+
+    });
+
+
+
+
+
+
+
+
+});
