@@ -10,7 +10,7 @@ public class UsuarioDao {
         this.conexion = conexion;
     }
 
-    // Insertar nuevo usuario
+    // INSERTAR USUARIO
     public boolean insertarUsuario(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO usuarios (nombres, apellidos, telefono, correo, cedula, contrasena, rol) VALUES (?, ?,  ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -25,7 +25,7 @@ public class UsuarioDao {
         }
     }
 
-    // Obtener usuario por ID
+    // OBTENER USUARIO POR ID
     public Usuario obtenerUsuarioPorId(int id) throws SQLException {
         String sql = "SELECT u.*, r.nombre AS nombreRol FROM usuarios u JOIN rol r ON u.rol = r.id WHERE u.id = ?";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -39,7 +39,7 @@ public class UsuarioDao {
         return null;
     }
 
-    // Actualizar usuario
+    // ACTUALIZAR USUARIO
     public boolean actualizarUsuario(Usuario usuario) throws SQLException {
         boolean tieneContrasena = usuario.getContrasena() != null && !usuario.getContrasena().isEmpty();
 
@@ -65,7 +65,7 @@ public class UsuarioDao {
         }
     }
 
-    // Eliminar usuario por ID
+    // ELIMIANR USUARIO POR ID
     public boolean eliminarUsuario(int id) throws SQLException {
         String sql = "DELETE FROM usuarios WHERE id = ?";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class UsuarioDao {
         }
     }
 
-    // Cambiar contraseña por ID
+    // CAMBIAR CONTRASEÑA POR ID DE USUARIO
     public boolean cambiarContrasena(int idUsuario, String nuevaContrasena) throws SQLException {
         String sql = "UPDATE usuarios SET contrasena = ? WHERE id = ?";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -84,7 +84,7 @@ public class UsuarioDao {
         }
     }
 
-    // Cambiar contraseña desde perfil (requiere validación previa)
+    // MODIFICAR CONTRASEÑA DESDE PERFIL
     public boolean cambiarContrasenaUsuario(String correo, String contrasenaActual, String nuevaContrasena)
             throws SQLException {
         String sqlVerificar = "SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?";

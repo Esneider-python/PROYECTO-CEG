@@ -1,6 +1,7 @@
 package Dao;
 
-import Modelo.Colegio;
+import Modelo.Aula;
+import Modelo.Piso;
 import Modelo.Usuario;
 import util.Conexion;
 
@@ -8,21 +9,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColegioDao {
+public class AulaDao {
 
-// INSERTAR UN NUEVO COLEGIO
-    public void insertar(Colegio colegio) {
-        String sql = "INSERT INTO colegio (nombre_colegio, usuario_registra) VALUES (?, ?)";
+    // Método para insertar un aula y recuperar su ID autogenerado
+    public void insertar(Aula aula) {
+        String sql = "INSERT INTO aulas (piso_id, usuario_id) VALUES (?, ?)";
         try (Connection conn = Conexion.getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, colegio.getNombre());
-            stmt.setInt(2, colegio.getUsuarioRegistra().getIdUsuario());
+            stmt.setInt(1, aula.getPiso().getId());
+            stmt.setInt(2, aula.getUsuarioRegistra().getIdUsuario());
             stmt.executeUpdate();
 
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    colegio.setId(rs.getInt(1));
+                    aula.setId(rs.getInt(1));
                 }
             }
 
@@ -31,10 +32,10 @@ public class ColegioDao {
         }
     }
 
-    // CONSULTAR COLEGIO POR ID
-    public Colegio obtenerPorId(int id) {
-        String sql = "SELECT * FROM colegio WHERE id_colegio = ?";
-        Colegio colegio = null;
+    // Método para obtener un aula por su ID
+    public Aula obtenerPorId(int id) {
+        String sql = "SELECT * FROM aulas WHERE id_aula = ?";
+        Aula aula = null;
 
         try (Connection conn = Conexion.getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -42,12 +43,14 @@ public class ColegioDao {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    Piso piso = new PisoDao().obtenerPorId(rs.getInt("piso_id"));
+                    // Solo asignamos el ID de usuario, sin cargar datos adicionales
                     Usuario usuario = new Usuario();
-                    usuario.setIdUsuario(rs.getInt("usuario_registra"));
+                    usuario.setIdUsuario(rs.getInt("usuario_id"));
 
-                    colegio = new Colegio(
-                        rs.getInt("id_colegio"),
-                        rs.getString("nombre_colegio"),
+                    aula = new Aula(
+                        rs.getInt("id_aula"),
+                        piso,
                         usuario
                     );
                 }
@@ -57,48 +60,49 @@ public class ColegioDao {
             e.printStackTrace();
         }
 
-        return colegio;
+        return aula;
     }
 
-    
-    public List<Colegio> obtenerTodos() {
-        String sql = "SELECT * FROM colegio";
-        List<Colegio> colegios = new ArrayList<>();
+    // Método para obtener todas las aulas
+    public List<Aula> obtenerTodos() {
+        String sql = "SELECT * FROM aulas";
+        List<Aula> aulas = new ArrayList<>();
 
         try (Connection conn = Conexion.getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                Piso piso = new PisoDao().obtenerPorId(rs.getInt("piso_id"));
+                // Solo asignamos el ID de usuario
                 Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getInt("usuario_registra"));
+                usuario.setIdUsuario(rs.getInt("usuario_id"));
 
-                Colegio colegio = new Colegio(
-                    rs.getInt("id_colegio"),
-                    rs.getString("nombre_colegio"),
+                Aula aula = new Aula(
+                    rs.getInt("id_aula"),
+                    piso,
                     usuario
                 );
-                colegios.add(colegio);
+                aulas.add(aula);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return colegios;
+        return aulas;
     }
 
-    // ACTUALIZAR COLEGIO
-
-    public void actualizar(Colegio colegio) {
-        String sql = "UPDATE colegio SET nombre_colegio = ?, usuario_registra = ? WHERE id_colegio = ?";
+    // Método para actualizar un aula
+    public void actualizar(Aula aula) {
+        String sql = "UPDATE aulas SET piso_id = ?, usuario_id = ? WHERE id_aula = ?";
 
         try (Connection conn = Conexion.getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, colegio.getNombre());
-            stmt.setInt(2, colegio.getUsuarioRegistra().getIdUsuario());
-            stmt.setInt(3, colegio.getId());
+            stmt.setInt(1, aula.getPiso().getId());
+            stmt.setInt(2, aula.getUsuarioRegistra().getIdUsuario());
+            stmt.setInt(3, aula.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -106,10 +110,9 @@ public class ColegioDao {
         }
     }
 
-    // ELIMINAR COLEGIO
-
+    // Método para eliminar un aula por su ID
     public void eliminar(int id) {
-        String sql = "DELETE FROM colegio WHERE id_colegio = ?";
+        String sql = "DELETE FROM aulas WHERE id_aula = ?";
 
         try (Connection conn = Conexion.getConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -121,6 +124,4 @@ public class ColegioDao {
             e.printStackTrace();
         }
     }
-
-    
 }

@@ -9,7 +9,8 @@ public class Reporte {
     private int elementoReportado;
     private int usuarioReporta;
 
-    // Constructor sin ID ni fecha (para insertar)
+    // CONSTRUCTOR SIN EL CAMPO FECHA, (FECHA AUTOMATICA EN LA BASE DE DATOS)
+    
     public Reporte(String descripcion, int elementoReportado, int usuarioReporta) {
         this.descripcion = descripcion;
         this.elementoReportado = elementoReportado;
