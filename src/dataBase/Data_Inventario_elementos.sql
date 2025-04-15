@@ -34,14 +34,21 @@ CREATE TABLE sede (
     id_sede INT AUTO_INCREMENT PRIMARY KEY,
     nombre_sede VARCHAR(100) NOT NULL,
     colegio_id INT NOT NULL,
-    FOREIGN KEY (colegio_id) REFERENCES colegio(id_colegio)
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (colegio_id) REFERENCES colegio(id_colegio),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
 );
 
--- Tabla de bloques
+
+
+ Tabla de bloques
+
 CREATE TABLE bloques (
     id_bloque INT AUTO_INCREMENT PRIMARY KEY,
     sede_id INT NOT NULL,
-    FOREIGN KEY (sede_id) REFERENCES sede(id_sede)
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (sede_id) REFERENCES sede(id_sede),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
 );
 
 -- Tabla de pisos
@@ -49,15 +56,20 @@ CREATE TABLE pisos (
     id_piso INT AUTO_INCREMENT PRIMARY KEY,
     numero_piso INT NOT NULL,
     bloque_id INT NOT NULL,
-    FOREIGN KEY (bloque_id) REFERENCES bloques(id_bloque)
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (bloque_id) REFERENCES bloques(id_bloque),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
 );
 
 -- Tabla de aulas
 CREATE TABLE aulas (
     id_aula INT AUTO_INCREMENT PRIMARY KEY,
     piso_id INT NOT NULL,
-    FOREIGN KEY (piso_id) REFERENCES pisos(id_piso)
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (piso_id) REFERENCES pisos(id_piso),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
 );
+
 
 -- Tabla de elementos
 CREATE TABLE elementos (

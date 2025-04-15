@@ -420,8 +420,7 @@ public class ElementoDao {
         return -1; // Error
     }
 
-    // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES "ADMINISTRADOR Y REGISTRAR
-    // AUDITORIA"
+    // ACTUALIZAR IDENTIFICADOR DE UN ELEMENTO SOLO SI ES "ADMINISTRADOR Y REGISTRAR LA INFORMACION EN LA TABLA DE CAMBIOS DE IDENTIFICADOR
 
     public boolean actualizarIdentificador(int idElemento, String nuevoIdentificador, String nuevoTipo, int idUsuario) {
         Connection conn = null;
