@@ -1,6 +1,8 @@
 package Dao;
 
 import Modelo.Rol;
+import util.Conexion;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,29 @@ public class RolDao {
     }
 
     // INSERTAR ROL
-    public boolean insertarRol(Rol rol) throws SQLException {
-        String sql = "INSERT INTO rol (nombre_rol) VALUES (?)";
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-            ps.setString(1, rol.getNombreRol());
-            return ps.executeUpdate() > 0;
+    public int insertarRol(Rol rol) {
+        String sql = "INSERT INTO rol(nombre_rol) VALUES (?)";
+        try (Connection conn = Conexion.getConexion();
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            // Seteamos el nombre del rol
+            stmt.setString(1, rol.getNombreRol());
+
+            // Ejecutamos la actualización
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Si se inserta con éxito, obtenemos el ID generado
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    // Devuelves el ID generado
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return -1; // Retorna -1 si ocurrió un error
     }
 
     // OBTENER POR ID
@@ -41,7 +60,7 @@ public class RolDao {
         List<Rol> roles = new ArrayList<>();
         String sql = "SELECT * FROM rol";
         try (PreparedStatement ps = conexion.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 roles.add(new Rol(rs.getInt("id_rol"), rs.getString("nombre_rol")));
             }

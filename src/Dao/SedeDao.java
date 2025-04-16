@@ -32,7 +32,6 @@ public class SedeDao {
     }
 
     // OBTENER SEDE POR ID
-
     public Sede obtenerPorId(int id) {
         String sql = "SELECT * FROM sede WHERE id_sede = ?";
         Sede sede = null;
@@ -44,8 +43,8 @@ public class SedeDao {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     // PASAMOS LA CONEXIÓN EXISTENTE A LOS DAO
-                    ColegioDao colegioDao = new ColegioDao();
-                    UsuarioDao usuarioDao = new UsuarioDao(conn);
+                    ColegioDao colegioDao = new ColegioDao(conn);  // Pasamos la conexión aquí
+                    UsuarioDao usuarioDao = new UsuarioDao(conn);  // También pasamos la conexión a UsuarioDao
 
                     Colegio colegio = colegioDao.obtenerPorId(rs.getInt("colegio_id"));
                     Usuario usuario = usuarioDao.obtenerUsuarioPorId(rs.getInt("usuario_id"));

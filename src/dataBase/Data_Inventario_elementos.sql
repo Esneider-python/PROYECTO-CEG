@@ -1,5 +1,5 @@
 -- Crear base de datos
-CREATE DATABASE IF NOT EXISTS Data_Inventario_elementos;
+CREATE DATABASE IF NOT EXISTS databaselapaz;
 USE Data_Inventario_elementos;
 
 -- Tabla de roles
@@ -41,8 +41,7 @@ CREATE TABLE sede (
 
 
 
- Tabla de bloques
-
+--  Tabla de bloques
 CREATE TABLE bloques (
     id_bloque INT AUTO_INCREMENT PRIMARY KEY,
     sede_id INT NOT NULL,
