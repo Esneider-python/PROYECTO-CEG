@@ -12,7 +12,7 @@ public class UsuarioDao {
 
     // INSERTAR USUARIO
     public boolean insertarUsuario(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO usuarios (nombres, apellidos, telefono, correo, cedula, contrasena, rol) VALUES (?, ?,  ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuarios (nombres, apellidos, telefono, correo, cedula, contrasena, rol_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, usuario.getNombres());
             ps.setString(2, usuario.getApellidos());
